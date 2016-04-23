@@ -1,0 +1,60 @@
+body { 
+	background: url(../images/battle.jpg) no-repeat; 
+	background-size:100%;
+}
+.wrapper{
+	
+
+	max-width:960px;
+	margin: 0 auto;
+}
+
+.letter { 
+	width: 150px; 
+	height:150px; 
+	border-style: solid; 
+	padding: 2px; 
+	float: left; 
+	margin: 2px; 
+}
+
+.letter-button-color { 
+	color: darkcyan; 
+}
+
+.fridge-color { 
+	color: orange; 
+}
+
+#displayplayer { 
+	margin-top:78px; 
+	height:150px; 
+	width:500px; 
+	margin-left:60px; 
+	border: solid 3px red;
+}
+
+#displayopponents {
+	margin-top:78px; 
+	height:150px; 
+	width:500px; 
+	margin-left:60px; 
+	border: dashed 3px green;
+}
+
+#buttons { 
+	padding-top:60px; 
+}
+
+#clear { 
+	margin-left: 20px; 
+	font-size: 25px; 
+	color: black; 
+	border-style: solid; 
+	width: 100px; 
+} 
+footer{
+	width:100%;
+	text-align: center;
+	clear: both;
+}
