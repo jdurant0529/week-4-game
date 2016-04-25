@@ -24,20 +24,21 @@
 		}
 // end of stuff that I dont really understand.
 
-		choosePlayer();
-		chooseOpponent();
+		pc = choosePlayer();
+		oc = chooseOpponent();
 
 
 		function choosePlayer(){
 			var k = prompt('Enter number between 0 and ' + (characters.length-1));
 			var playerCharacter = characters[k];
 			characters.splice(k,1);
-		
+			return playerCharacter;
 		}
 		function chooseOpponent(){
 			var j = prompt('Enter number between 0 and ' + (characters.length-1));
 			var opponentCharacter = characters[j];
 			characters.splice(j,1);
+			return opponentCharacter;
 		}
 
 		$('.attackButton').on("click", function(){
@@ -50,22 +51,22 @@
 
 			// var playerCharacter = characters[0];
 			// var opponentCharacter = characters[1];
-			console.log(playerCharacter);
-			console.log(opponentCharacter);	 
+			console.log(pc);
+			console.log(oc);	 
 
 			console.log(pcAP);
 			if (pcAP == 0){
-				console.log("current player ="+ pcAP + "player attack power = " + playerCharacter.AP);
-				pcAP = playerCharacter.AP;
+				console.log("current player ="+ pcAP + "player attack power = " + pc.AP);
+				pcAP = pc.AP;
 			} 
-			opponentCharacter.HP = opponentCharacter.HP - pcAP;
-			pcAP = pcAP + playerCharacter.AP;
+			oc.HP = oc.HP - pcAP;
+			pcAP = pcAP + pc.AP;
 			console.log("Player current attack power = " + pcAP);
-			checkWin(opponentCharacter.HP);
-			playerCharacter.HP = playerCharacter.HP - opponentCharacter.CP
+			checkWin(oc.HP, oc.label);
+			pc.HP = pc.HP - oc.CP
 			console.log(pcAP);
-			console.log(playerCharacter.HP)
-			checkLoss(playerCharacter.HP);
+			console.log(pc.HP)
+			checkLoss(pc.HP);
 		 });  
 		// end of attackButton click
 
@@ -75,11 +76,12 @@
 		});  
 // end of other stuff i didnt understand
 
-	    function checkWin(HP){
+	    function checkWin(HP, name){
 	    	console.log("Opponent health = " + HP);
+	    	console.log("Opponent name =" + name);
 	    	if(HP<=0){
-	    		if (characters.length > 1) {
-	    			alert("You defeated " + opponentCharacter.name);
+	    		if (characters.length > 0) {
+	    			alert("You defeated " + name);
 	    			chooseOpponent();
 	    		}else { 
 	    			alert('You are the master of the universe.');
@@ -91,7 +93,7 @@
 	    function checkLoss(HP){
 	    	console.log("Player health = " + HP)
 	    	if(HP<=0){
-	    		alert("You lost");
+	    		alert("You lost, restart the game.");
 	    	}
 
 	    }
