@@ -3,22 +3,21 @@ body {
 	background-size:100%;
 }
 .wrapper{
-	
-
 	max-width:960px;
 	margin: 0 auto;
 }
 
-.letter { 
-	width: 150px; 
-	height:150px; 
+.character { 
+	/*width: 150px; 
+	height:150px; */
 	border-style: solid; 
 	padding: 2px; 
 	float: left; 
 	margin: 2px; 
+	overflow:hidden;
 }
 
-.letter-button-color { 
+.character-button-color { 
 	color: darkcyan; 
 }
 
@@ -44,8 +43,16 @@ body {
 
 #buttons { 
 	padding-top:60px; 
+	height:150px;
+	width: 150px;
+	/*overflow:hidden;*/
+	/*float:left;*/
 }
-
+#buttons img {
+	width:150px;
+	height:150px;
+	float:left;
+}
 #clear { 
 	margin-left: 20px; 
 	font-size: 25px; 

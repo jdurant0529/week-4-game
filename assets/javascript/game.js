@@ -2,72 +2,98 @@
 	$( document ).ready(function() {
 		//we store all the letters and underscore inside of an array called letters
 		var characters = [
-		{name: "Obi Wan Kenobi", HP: 120, AP:8, CP: 25, image: "<img src='assets/images/obi.jpg'>"},
-		{name: "Darth Vader", HP: 100, AP: 10, CP: 20, image: "<img src='assets/images/darth.jpg'>"},
-		{name: "Luke Skywalker", HP: 80, AP: 12, CP: 15, image: "<img src='assets/images/luke.jpg'>"},
+		{label: "Obi Wan Kenobi", HP: 120, AP:8, CP: 12, image: "<img src='assets/images/obi.jpg'>"},
+		{label: "Darth Vader", HP: 100, AP: 10, CP: 10, image: "<img src='assets/images/darth.jpg'>"},
+		{label: "Luke Skywalker", HP: 80, AP: 12, CP: 8, image: "<img src='assets/images/luke.jpg'>"},
 		];
-		
-		/*
-		REMEMBER USE jQuery!
+		var pcAP = 0;
 
-		step 1: loop over the letters 
-			step 2: inside the loop
-				* make a variable named b 
-					* set it equal to a button with 
-						- the following classes: letter-button letter letter-button-color
-						- a data-let attribute set equal to letters[i]
-						- text of letters[i]
-				* step 3: append b to the div with an id of buttons
-		*/
+		console.log(characters[0].label);
+//i dont really understand this
 		for (var i = 0; i < characters.length; i++) {    
 		    var b = $('<button>');
-		    b.addClass('letter-button letter letter-button-color');
-		    b.attr('data-let', characters[i].name);
-		    b.text(characters[i].name);
-		    b.html(characters[i].image);
-		//    b.height(150);
-		 //   b.width(150);
-		 //   b.style.maxHeight = 100%
-		 //   b.style.maxWidth = 100%
-		  //  c.html(characters[i.image]);  b.background(url (source));
+		    b.addClass('character character-button');
+		    b.attr('data-let', characters[i].label); 
 
-		    //alternatively you could do it in one line but it'll be harder to read
-		    //var b = $('<button class="letter-button letter letter-button-color" data-let="'+ letters[i] +'">').text(letters[i]);   
-		    
+		    b.text(characters[i]);
+		    b.html(characters[i].image);
+		    b.data(characters[i]);
+
 		    $("#buttons").append(b); 
 		    //alert('watch this');
 		}
+// end of stuff that I dont really understand.
+
+		choosePlayer();
+		chooseOpponent();
 
 
-	    $('.letter-button').on('click', function() {
-	    	/*
-	    		Step 4:
+		function choosePlayer(){
+			var k = prompt('Enter number between 0 and ' + (characters.length-1));
+			var playerCharacter = characters[k];
+			characters.splice(k,1);
+		
+		}
+		function chooseOpponent(){
+			var j = prompt('Enter number between 0 and ' + (characters.length-1));
+			var opponentCharacter = characters[j];
+			characters.splice(j,1);
+		}
 
-	    		* inside this anonymous function that gets passed to the click event
-	    			* create a variable called fridgeMagnet 
-	    				* set the variable equal to a new div 
-	    					* with the following classes: letter fridge-color
-	    					* chain this onto the div: 
-	    						.text($(this).data('let'))
-	    	*/
+		$('.attackButton').on("click", function(){
+			// alert('Here we are');
 
-	    	//$('<p>') //that will do <p></p> for you
-	    	//$('<a>') // that will do <a></a> for you
+			//new stuff
+			
+			// end of new stuff
 
-			var fridgeMagnet = $('<div class="letter fridge-color">').text($(this).data('let'));
 
-			/* Step 5: append the fridgeMagnet variable to the element with an id of display */
-			//$("#displayplayer").append(fridgeMagnet);
-			alert('watch this')
-		});
+			// var playerCharacter = characters[0];
+			// var opponentCharacter = characters[1];
+			console.log(playerCharacter);
+			console.log(opponentCharacter);	 
 
-	    //Step 6: on the element with an id of clear, attach an on click function
-	    	/*
-	    		Step 7: inside ththeis anonymous function that gets passed to the click event
-	    			* use the empty() function on the element with an id of display 
-	    	*/
-		$('#clear').on('click', function() {
-			$("#displayplayer").empty(); 
-		});
+			console.log(pcAP);
+			if (pcAP == 0){
+				console.log("current player ="+ pcAP + "player attack power = " + playerCharacter.AP);
+				pcAP = playerCharacter.AP;
+			} 
+			opponentCharacter.HP = opponentCharacter.HP - pcAP;
+			pcAP = pcAP + playerCharacter.AP;
+			console.log("Player current attack power = " + pcAP);
+			checkWin(opponentCharacter.HP);
+			playerCharacter.HP = playerCharacter.HP - opponentCharacter.CP
+			console.log(pcAP);
+			console.log(playerCharacter.HP)
+			checkLoss(playerCharacter.HP);
+		 });  
+		// end of attackButton click
 
+//this I dont understand either
+	    $('.character-button').on('click', function() {
+	    	console.log($(this).label);
+		});  
+// end of other stuff i didnt understand
+
+	    function checkWin(HP){
+	    	console.log("Opponent health = " + HP);
+	    	if(HP<=0){
+	    		if (characters.length > 1) {
+	    			alert("You defeated " + opponentCharacter.name);
+	    			chooseOpponent();
+	    		}else { 
+	    			alert('You are the master of the universe.');
+	    		}
+	    	}
+
+	    }
+
+	    function checkLoss(HP){
+	    	console.log("Player health = " + HP)
+	    	if(HP<=0){
+	    		alert("You lost");
+	    	}
+
+	    }
+		
 	});
