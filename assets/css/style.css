@@ -31,8 +31,8 @@ body {
 }
 
 #player img{
-	width:150px;
-	height:150px;
+	width:100px;
+	height:100px;
 	float:left;
 }
 .opponent {
@@ -44,8 +44,8 @@ body {
 	color: white;
 }
 #opponent img {
-	width:150px;
-	height:150px;
+	width:100px;
+	height:100px;
 	float:left;
 }
 
@@ -57,9 +57,15 @@ body {
 	/*float:left;*/
 }
 #allchars img {
-	width:150px;
-	height:150px;
+	width:100px;
+	height:100px;
 	float:left;
+}
+
+#defeated img {
+	width: 100px;
+	height: 100px;
+	float: left;
 }
 #clear { 
 	margin-left: 20px; 

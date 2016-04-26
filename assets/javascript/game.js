@@ -32,24 +32,27 @@
 
 
 		$('.attackButton').on("click", function(){
+			console.log('start of attack');
+				pcAP = pcAP + playerCharacter.AP;
+				console.log("current player = "+ playerCharacter.name +" player attack power = " + playerCharacter.AP);
+				console.log('player health = ' + playerCharacter.HP + ' player current attack power = ' + pcAP);
+				pcAP = playerCharacter.AP + pcAP; // add attack power before attack - since current attack power starts at 0.
+		 		console.log('opponent name = ' + opponentCharacter.name + ' opponent counter-attack = ' + opponentCharacter.CP);
+		 		console.log('opponent health = ' + opponentCharacter.HP);
+				opponentCharacter.HP = opponentCharacter.HP - pcAP; //opponent loses HP on attack
+				console.log('after attack, opponent health = ' + opponentCharacter.HP);
 
-			if (pcAP == 0){
-				console.log("current player ="+ playerCharacter.name +"player attack power = " + playerCharacter.AP);
-				
-				pcAP = playerCharacter.AP;
-				console.log('player current attack power = ' + pcAP)
-			} 
-			opponentCharacter.HP = opponentCharacter.HP - pcAP;
-			pcAP = pcAP + playerCharacter.AP;
-			console.log("Player current attack power = " + pcAP);
-			checkWin(opponentCharacter.HP, opponentCharacter.name);
+				console.log('1st opponent chosen = ' + opponentChosen);
+				opponentChosen = checkWin(opponentCharacter.HP, opponentCharacter.name, opponentCharacter.id);
+				console.log('2nd opponent chosen = ' + opponentChosen);
 			if(opponentCharacter != ''){
 				playerCharacter.HP = playerCharacter.HP - opponentCharacter.CP;
-				console.log(pcAP); 
-				console.log(playerCharacter.HP);
+				 console.log('after counter-attack player health = ' + playerCharacter.HP); 
+				// console.log(playerCharacter.HP);
 				checkLoss(playerCharacter.HP);
 			}
 			
+			console.log('end of attack');
 			 // $('player').html('Player choose = ' + oc.label + 'Player health = ' oc.HP + '<br>Player attack Power = ')
 
 		 });  
@@ -75,22 +78,24 @@
 		});  
 // end of other stuff i didnt understand
 
-	    function checkWin(HP, name){
-	    	console.log("Opponent health = " + HP);
-	    	console.log("Opponent name =" + name);
+	    function checkWin(HP, name, id){
+
+	    	console.log('start of checkWin process');
 	    	if(HP<=0){
 	    		if (characters.length > 0) {
 	    			alert("You defeated " + name);
-	    			opponentChosen = false;
-	    			$('#opponent').appendTo('#defeated');
+	    			var newOpponent = false;
+	    			console.log('.character ' + id)
+	    			$('#'+id).appendTo('#defeated');
 	    			opponentCharacter = [];
 	    			console.log(opponentCharacter);
 	    		}else { 
 	    			alert("You defeated " + name);
 	    			alert('You are the master of the universe.');
 	    		}
-	    	}
-
+	    	} else {console.log('keep fighting')}
+	    	console.log('end of checkWin process');
+	    	return newOpponent;
 	    }
 
 	    function checkLoss(HP){
