@@ -8,8 +8,6 @@ body {
 }
 
 .character { 
-	/*width: 150px; 
-	height:150px; */
 	border-style: solid; 
 	padding: 2px; 
 	float: left; 
@@ -18,9 +16,6 @@ body {
 	margin:10px;
 }
 
-.character-button-color { 
-	color: darkcyan; 
-}
 
 .fridge-color { 
 	color: orange; 
@@ -35,7 +30,7 @@ body {
 	color: white;
 }
 
-.player img{
+#player img{
 	width:150px;
 	height:150px;
 	float:left;

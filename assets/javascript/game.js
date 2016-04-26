@@ -1,23 +1,27 @@
 
 	$( document ).ready(function() {
+		var playerChosen = false;
+		var opponentChosen = false;
+
 		//we store all the letters and underscore inside of an array called letters
 		var characters = [
-		{id: "Obi-Wan-Kenobi", Oname: "Obi Wan Kenobi", HP: 120, AP:8, CP: 12, image: "<img src='assets/images/obi.jpg'>"},
+		{id: "Obi-Wan-Kenobi", name: "Obi Wan Kenobi", HP: 120, AP:8, CP: 12, image: "<img src='assets/images/obi.jpg'>"},
 		{id: "Darth-Vader", name: "Darth Vader", HP: 100, AP: 10, CP: 10, image: "<img src='assets/images/darth.jpg'>"},
 		{id: "Luke-Skywalker", name: "Luke Skywalker", HP: 80, AP: 12, CP: 8, image: "<img src='assets/images/luke.jpg'>"},
-		{id: ""}];
+		{id: "Count-Dooku", name: "Count Dooku", HP: 150, AP: 6, CP: 14, image: "<img src='assets/images/dooku.jpg'>"}];
 		var pcAP = 0;
 
 		// console.log(characters[0].name);
 //i dont really understand this
 		for (var i = 0; i < characters.length; i++) {    
 		    var b = $('<button>');
-		    b.addClass('character character-button ' + characters[i].name);
+		    b.addClass('character ' + characters[i].id);
 		    b.attr('data-name', characters[i].name); 
 		    b.attr('data-HP', characters[i].HP);
 		    b.attr('data-AP', characters[i].AP);
 		    b.attr('data-CP', characters[i].CP);
 		    b.attr('data-num', i);
+		    b.attr('id',characters[i].id);
 		    // b.text(characters[i]);
 		    b.html(characters[i].image);
 		    // b.data(characters[i]);
@@ -31,20 +35,20 @@
 		// var oc = chooseOpponent();
 
 
-		function choosePlayer(k){
-			console.log(k + 'I am in choose player function');
-			var playerChosen = true
-			var playerCharacter = characters[k];
-			characters.splice(k,1);
-			return playerCharacter;
+		// function choosePlayer(k){
+		// 	console.log(k + 'I am in choose player function');
+		// 	var playerChosen = true
+		// 	var playerCharacter = characters[k];
+		// 	characters.splice(k,1);
+		// 	return playerCharacter;
 
-		}
-		function chooseOpponent(){
-			// var j = prompt('Enter number between 0 and ' + (characters.length-1));
-			var opponentCharacter = characters[$(this).data('num')];
-			characters.splice($(this).data('num'),1);
-			return opponentCharacter;
-		}
+		// }
+		// function chooseOpponent(){
+		// 	// var j = prompt('Enter number between 0 and ' + (characters.length-1));
+		// 	var opponentCharacter = characters[$(this).data('num')];
+		// 	characters.splice($(this).data('num'),1);
+		// 	return opponentCharacter;
+		// }
 
 		$('.attackButton').on("click", function(){
 			 alert('Here we are');
@@ -78,12 +82,20 @@
 		// end of attackButton click
 
 //this I dont understand either
-	    $('.character-button').on('click', function() {
-	    	console.log($(this).data('name'));
+	    $('.character').on('click', function() {
+	    	if(playerChosen == false) {
+	    		playerChosen = true;
+	    		console.log($(this).data('name'));
+	    		$(this).appendTo($('#player'));
+	    	} else if (opponentChosen == false) {
+	    		opponentChosen = true;
+	    		console.log($(this).data('name'));
+	    		$(this).appendTo($('#opponent'));
+	    	}
+
 	    	// var pc = choosePlayer($(this).data('num'));
 	    	// console.log(pc);
-	    	$('.Obi Wan Kenobi').removeClass
-	    	$('.allchars').removeClass
+	    	// $('.allchars').removeClass
 	  //   	for (var i = 0; i < characters.length; i++) {    
 			//     var c = $('<button>');
 			//     c.addClass('character character-button');
