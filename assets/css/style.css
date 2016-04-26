@@ -15,6 +15,7 @@ body {
 	float: left; 
 	margin: 2px; 
 	overflow:hidden;
+	margin:10px;
 }
 
 .character-button-color { 
@@ -25,20 +26,32 @@ body {
 	color: orange; 
 }
 
-#displayplayer { 
+.player { 
 	margin-top:78px; 
 	height:150px; 
 	width:500px; 
-	margin-left:60px; 
+	margin-left:200px; 
 	border: solid 3px red;
+	color: white;
 }
 
-#displayopponents {
+.player img{
+	width:150px;
+	height:150px;
+	float:left;
+}
+.opponent {
 	margin-top:78px; 
 	height:150px; 
 	width:500px; 
-	margin-left:60px; 
+	margin-left:200px; 
 	border: dashed 3px green;
+	color: white;
+}
+#opponent img {
+	width:150px;
+	height:150px;
+	float:left;
 }
 
 #buttons { 
@@ -48,7 +61,7 @@ body {
 	/*overflow:hidden;*/
 	/*float:left;*/
 }
-#buttons img {
+#allchars img {
 	width:150px;
 	height:150px;
 	float:left;
