@@ -6,12 +6,16 @@
 		var opponentCharacter = [];
 		var pcAP = 0;
 		var counter = 0;
+		var newEnemy = false;
+		var playerStats = '';
+		var opponentStats = '';
+
 		//we store all the available characters in an array titled characters.
 		var characters = [
-		{id: "Obi-Wan-Kenobi", name: "Obi Wan Kenobi", HP: 120, AP:8, CP: 12, image: "<img src='assets/images/obi.jpg'>"},
-		{id: "Darth-Vader", name: "Darth Vader", HP: 100, AP: 10, CP: 10, image: "<img src='assets/images/darth.jpg'>"},
-		{id: "Luke-Skywalker", name: "Luke Skywalker", HP: 80, AP: 12, CP: 8, image: "<img src='assets/images/luke.jpg'>"},
-		{id: "Count-Dooku", name: "Count Dooku", HP: 150, AP: 6, CP: 14, image: "<img src='assets/images/dooku.jpg'>"}];
+		{id: "Obi-Wan-Kenobi", name: "Obi Wan Kenobi", HP: 120, AP:8, CP: 25, image: "<img src='assets/images/obi.jpg'>"},
+		{id: "Darth-Vader", name: "Darth Vader", HP: 100, AP: 10, CP: 5, image: "<img src='assets/images/darth.jpg'>"},
+		{id: "Luke-Skywalker", name: "Luke Skywalker", HP: 80, AP: 12, CP: 20, image: "<img src='assets/images/luke.jpg'>"},
+		{id: "Count-Dooku", name: "Count Dooku", HP: 150, AP: 6, CP: 15, image: "<img src='assets/images/dooku.jpg'>"}];
 		
 //i dont really understand this
 		for (var i = 0; i < characters.length; i++) {    
@@ -50,19 +54,27 @@
 				// console.log('1st opponent chosen = ' + opponentChosen);
 				opponentChosen = checkWin(opponentCharacter.HP, opponentCharacter.name, opponentCharacter.id);
 				// console.log('2nd opponent chosen = ' + opponentChosen);
-			
+				if (opponentChosen == false) {
+					$('#opponent-stats').empty();
+					opponentCharacter = [];
+				}else{
 				playerCharacter.HP = playerCharacter.HP - opponentCharacter.CP;
 				 // console.log('after counter-attack player health = ' + playerCharacter.HP); 
 				
 				// checkLoss(playerCharacter.HP);
-				var playerStats = ('<h2>'+playerCharacter.name + 
+				// playerStats = (playerCharacter.name + 
+				// 					'<br> Player Health: ' + playerCharacter.HP +
+				// 					'<br> Player Attack Power: ' + pcAP);
+				$('#player-stats').html(playerCharacter.name + 
 									'<br> Player Health: ' + playerCharacter.HP +
-									'<br> Player Attack Power: ' + pcAP + '</h2>');
-				$('#player-stats').html(playerStats);
-				var opponentStats = ('<h2>'+ opponentCharacter.name + 
+									'<br> Player Attack Power: ' + pcAP);
+				// opponentStats = (opponentCharacter.name + 
+				// 					'<br> Player Health: ' + opponentCharacter.HP + 
+				// 					'<br> Opponent Counter-Attack: ' + opponentCharacter.CP);
+				$('#opponent-stats').html(opponentCharacter.name + 
 									'<br> Player Health: ' + opponentCharacter.HP + 
-									'<br> Opponent Counter-Attack: ' + opponentCharacter.CP + '</h2>');
-				$('#opponent-stats').html(opponentStats);
+									'<br> Opponent Counter-Attack: ' + opponentCharacter.CP);
+				}
 			}
 			// }
 			
@@ -80,48 +92,29 @@
 	    		$(this).appendTo($('#player'));
 	    		
 	    		playerCharacter = characters[$(this).data('num')];
-	    		var playerStats = ('<h2>'+$(this).data('name') + 
+	    		// playerStats = ($(this).data('name') + 
+	    		// 					'<br> Player Health: ' + $(this).data('hp')+
+	    		// 					'<br> Player Attack Power: ' + $(this).data('ap'));
+	    		$('#player-stats').html($(this).data('name') + 
 	    							'<br> Player Health: ' + $(this).data('hp')+
-	    							'<br> Player Attack Power: ' + $(this).data('ap') +'</h2>');
+	    							'<br> Player Attack Power: ' + $(this).data('ap'));
 			}else if (counter > 0 && $(this).data('name') == playerCharacter.name){
 	    		alert ('Player can not be opponent');
-	    	}else if (counter > 0 && opponentChosen == false && counter < characters.length) {
+	    	}else if (counter > 0 && opponentChosen == false) {
 	    		counter++;
 	    		opponentChosen = true;
 	    		$(this).appendTo($('#opponent'));
 	    		opponentCharacter = characters[($(this).data('num'))];
-	    		var opponentStats = ('<h2>'+$(this).data('name') + 
+	    		// opponentStats = ($(this).data('name') + 
+							// 		'<br> Player Health: ' + $(this).data('hp')+
+							// 		'<br> Player Counter-Attack: ' + $(this).data('cp'))
+	    		$('#opponent-stats').html($(this).data('name') + 
 									'<br> Player Health: ' + $(this).data('hp')+
-									'<br> Player Counter-Attack: ' + $(this).data('cp') +'</h2>')
+									'<br> Player Counter-Attack: ' + $(this).data('cp'));
+	    		
 	    	}else if (playerCharacter.name == null || opponentCharacter == null){
 	    		alert ('Both players have yet to be chosen');
 	    	}
-
-	   
-
-
-
-
-	    	// if(playerChosen == false) {
-	    	// 	playerChosen = true;
-	    	// 	console.log($(this).data('name'));
-	    	// 	$(this).appendTo($('#player'));
-	    	// 	playerCharacter = characters[$(this).data('num')];
-	    	// 	console.log(playerCharacter);
-	    		
-	    	// 	$('#player-stats').html(playerStats);
-
-	    	// } else if (opponentChosen == false) {
-	    	// 	opponentChosen = true;
-	    	// 	console.log($(this).data('name'));
-	    	// 	$(this).appendTo($('#opponent'));
-	    	// 	opponentCharacter = characters[$(this).data('num')];
-	    	// 	var opponentStats = ('<h2>'+$(this).data('name') + 
-	    	// 						'<br> Player Health: ' + $(this).data('hp')+
-	    	// 						'<br> Player Counter-Attack: ' + $(this).data('cp') +'</h2>');
-	    	// 	$('#opponent-stats').html(opponentStats);
-	    	// 	console.log(opponentCharacter);
-	    	// }
 
 		});  
 // end of other stuff i didnt understand
@@ -134,19 +127,25 @@
 	    		console.log(counter);
 	    		if (counter < characters.length) {
 	    			alert("You defeated " + name);
-	    			
+	    			opponentChosen = false;
 	    			// console.log('.character ' + id)
 	    			$('#'+id).appendTo('#defeated');
-	    			opponentStats = '';
+	    			// opponentStats = '';
 	    			$('#opponent-stats').empty();
-	    			opponentCharacter = [];
-
+	    			console.log(opponentCharacter);
+	    			// opponentCharacter = [];
+	    			console.log(opponentCharacter);
 	    			// console.log(opponentCharacter);
 	    		}else if (counter >= characters.length) { 
 	    			alert("You defeated " + name);
 	    			$('#'+id).appendTo('#defeated');
 	    			opponentStats = '';
+	    			opponentChosen = false;
+	    			//playerStats = ''
+	    			$('#opponent-stats').empty();
+	    			// opponentCharacter = [];
 	    			alert('You are the master of the universe.');
+
 	    		} else {
 	    			console.log('I dont know if this ever appears.');
 	    		} 
@@ -154,7 +153,7 @@
 	    		console.log('Keep fighting same character');
 	    	}
 	    	// console.log('end of checkWin process');
-	    	
+	    	return opponentChosen;
 	    }
 
 	    function checkLoss(HP){
