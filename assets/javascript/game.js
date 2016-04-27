@@ -5,6 +5,7 @@
 		var playerCharacter = [];
 		var opponentCharacter = [];
 		var pcAP = 0;
+		var counter = 0;
 		//we store all the available characters in an array titled characters.
 		var characters = [
 		{id: "Obi-Wan-Kenobi", name: "Obi Wan Kenobi", HP: 120, AP:8, CP: 12, image: "<img src='assets/images/obi.jpg'>"},
@@ -32,26 +33,28 @@
 
 
 		$('.attackButton').on("click", function(){
-			console.log('start of attack');
+			if (playerCharacter.name != null && opponentCharacter.name != null){
+				// console.log(playerCharacter.name +' '+ opponentCharacter.name)
+				// console.log('start of attack');
 				pcAP = pcAP + playerCharacter.AP;
-				console.log("current player = "+ playerCharacter.name +" player attack power = " + playerCharacter.AP);
-				console.log('player health = ' + playerCharacter.HP + ' player current attack power = ' + pcAP);
+				// console.log("current player = "+ playerCharacter.name +" player attack power = " + playerCharacter.AP);
+				// console.log('player health = ' + playerCharacter.HP + ' player current attack power = ' + pcAP);
 				pcAP = playerCharacter.AP + pcAP; // add attack power before attack - since current attack power starts at 0.
-		 		console.log('opponent name = ' + opponentCharacter.name + ' opponent counter-attack = ' + opponentCharacter.CP);
-		 		console.log('opponent health = ' + opponentCharacter.HP);
+		 		// console.log('opponent name = ' + opponentCharacter.name + ' opponent counter-attack = ' + opponentCharacter.CP);
+		 		// console.log('opponent health = ' + opponentCharacter.HP);
 				opponentCharacter.HP = opponentCharacter.HP - pcAP; //opponent loses HP on attack
-				console.log('after attack, opponent health = ' + opponentCharacter.HP);
+				// console.log('after attack, opponent health = ' + opponentCharacter.HP);
 			
 				
 
-				console.log('1st opponent chosen = ' + opponentChosen);
+				// console.log('1st opponent chosen = ' + opponentChosen);
 				opponentChosen = checkWin(opponentCharacter.HP, opponentCharacter.name, opponentCharacter.id);
-				console.log('2nd opponent chosen = ' + opponentChosen);
-			// if(opponentCharacter != ''){
+				// console.log('2nd opponent chosen = ' + opponentChosen);
+			
 				playerCharacter.HP = playerCharacter.HP - opponentCharacter.CP;
-				 console.log('after counter-attack player health = ' + playerCharacter.HP); 
-				// console.log(playerCharacter.HP);
-				checkLoss(playerCharacter.HP);
+				 // console.log('after counter-attack player health = ' + playerCharacter.HP); 
+				
+				// checkLoss(playerCharacter.HP);
 				var playerStats = ('<h2>'+playerCharacter.name + 
 									'<br> Player Health: ' + playerCharacter.HP +
 									'<br> Player Attack Power: ' + pcAP + '</h2>');
@@ -60,9 +63,10 @@
 									'<br> Player Health: ' + opponentCharacter.HP + 
 									'<br> Opponent Counter-Attack: ' + opponentCharacter.CP + '</h2>');
 				$('#opponent-stats').html(opponentStats);
+			}
 			// }
 			
-			console.log('end of attack');
+			// console.log('end of attack');
 			 // $('player').html('Player choose = ' + oc.label + 'Player health = ' oc.HP + '<br>Player attack Power = ')
 
 		 });  
@@ -70,52 +74,87 @@
 
 //this I dont understand either
 	    $('.character').on('click', function() {
-	    	if(playerChosen == false) {
-	    		playerChosen = true;
-	    		console.log($(this).data('name'));
+	    	if(counter == 0 && playerCharacter == false){
+	    		counter++;
+				playerChosen = true;
 	    		$(this).appendTo($('#player'));
+	    		
 	    		playerCharacter = characters[$(this).data('num')];
-	    		console.log(playerCharacter);
 	    		var playerStats = ('<h2>'+$(this).data('name') + 
 	    							'<br> Player Health: ' + $(this).data('hp')+
 	    							'<br> Player Attack Power: ' + $(this).data('ap') +'</h2>');
-	    		$('#player-stats').html(playerStats);
-
-	    	} else if (opponentChosen == false) {
+			}else if (counter > 0 && $(this).data('name') == playerCharacter.name){
+	    		alert ('Player can not be opponent');
+	    	}else if (counter > 0 && opponentChosen == false && counter < characters.length) {
+	    		counter++;
 	    		opponentChosen = true;
-	    		console.log($(this).data('name'));
 	    		$(this).appendTo($('#opponent'));
-	    		opponentCharacter = characters[$(this).data('num')];
+	    		opponentCharacter = characters[($(this).data('num'))];
 	    		var opponentStats = ('<h2>'+$(this).data('name') + 
-	    							'<br> Player Health: ' + $(this).data('hp')+
-	    							'<br> Player Counter-Attack: ' + $(this).data('cp') +'</h2>');
-	    		$('#opponent-stats').html(opponentStats);
-	    		console.log(opponentCharacter);
+									'<br> Player Health: ' + $(this).data('hp')+
+									'<br> Player Counter-Attack: ' + $(this).data('cp') +'</h2>')
+	    	}else if (playerCharacter.name == null || opponentCharacter == null){
+	    		alert ('Both players have yet to be chosen');
 	    	}
+
+	   
+
+
+
+
+	    	// if(playerChosen == false) {
+	    	// 	playerChosen = true;
+	    	// 	console.log($(this).data('name'));
+	    	// 	$(this).appendTo($('#player'));
+	    	// 	playerCharacter = characters[$(this).data('num')];
+	    	// 	console.log(playerCharacter);
+	    		
+	    	// 	$('#player-stats').html(playerStats);
+
+	    	// } else if (opponentChosen == false) {
+	    	// 	opponentChosen = true;
+	    	// 	console.log($(this).data('name'));
+	    	// 	$(this).appendTo($('#opponent'));
+	    	// 	opponentCharacter = characters[$(this).data('num')];
+	    	// 	var opponentStats = ('<h2>'+$(this).data('name') + 
+	    	// 						'<br> Player Health: ' + $(this).data('hp')+
+	    	// 						'<br> Player Counter-Attack: ' + $(this).data('cp') +'</h2>');
+	    	// 	$('#opponent-stats').html(opponentStats);
+	    	// 	console.log(opponentCharacter);
+	    	// }
 
 		});  
 // end of other stuff i didnt understand
 
 	    function checkWin(HP, name, id){
 
-	    	console.log('start of checkWin process');
+	    	// console.log('start of checkWin process');
 	    	if(HP<=0){
-	    		if (characters.length > 0) {
+	    		console.log(characters.length);
+	    		console.log(counter);
+	    		if (counter < characters.length) {
 	    			alert("You defeated " + name);
-	    			var newOpponent = false;
-	    			console.log('.character ' + id)
+	    			
+	    			// console.log('.character ' + id)
 	    			$('#'+id).appendTo('#defeated');
 	    			opponentStats = '';
 	    			$('#opponent-stats').empty();
 	    			opponentCharacter = [];
-	    			console.log(opponentCharacter);
-	    		}else { 
+
+	    			// console.log(opponentCharacter);
+	    		}else if (counter >= characters.length) { 
 	    			alert("You defeated " + name);
+	    			$('#'+id).appendTo('#defeated');
+	    			opponentStats = '';
 	    			alert('You are the master of the universe.');
-	    		}
-	    	} else {console.log('keep fighting')}
-	    	console.log('end of checkWin process');
-	    	return newOpponent;
+	    		} else {
+	    			console.log('I dont know if this ever appears.');
+	    		} 
+	    	} else {
+	    		console.log('Keep fighting same character');
+	    	}
+	    	// console.log('end of checkWin process');
+	    	
 	    }
 
 	    function checkLoss(HP){
