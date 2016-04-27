@@ -41,16 +41,26 @@
 		 		console.log('opponent health = ' + opponentCharacter.HP);
 				opponentCharacter.HP = opponentCharacter.HP - pcAP; //opponent loses HP on attack
 				console.log('after attack, opponent health = ' + opponentCharacter.HP);
+			
+				
 
 				console.log('1st opponent chosen = ' + opponentChosen);
 				opponentChosen = checkWin(opponentCharacter.HP, opponentCharacter.name, opponentCharacter.id);
 				console.log('2nd opponent chosen = ' + opponentChosen);
-			if(opponentCharacter != ''){
+			// if(opponentCharacter != ''){
 				playerCharacter.HP = playerCharacter.HP - opponentCharacter.CP;
 				 console.log('after counter-attack player health = ' + playerCharacter.HP); 
 				// console.log(playerCharacter.HP);
 				checkLoss(playerCharacter.HP);
-			}
+				var playerStats = ('<h2>'+playerCharacter.name + 
+									'<br> Player Health: ' + playerCharacter.HP +
+									'<br> Player Attack Power: ' + pcAP + '</h2>');
+				$('#player-stats').html(playerStats);
+				var opponentStats = ('<h2>'+ opponentCharacter.name + 
+									'<br> Player Health: ' + opponentCharacter.HP + 
+									'<br> Opponent Counter-Attack: ' + opponentCharacter.CP + '</h2>');
+				$('#opponent-stats').html(opponentStats);
+			// }
 			
 			console.log('end of attack');
 			 // $('player').html('Player choose = ' + oc.label + 'Player health = ' oc.HP + '<br>Player attack Power = ')
@@ -66,7 +76,9 @@
 	    		$(this).appendTo($('#player'));
 	    		playerCharacter = characters[$(this).data('num')];
 	    		console.log(playerCharacter);
-	    		var playerStats = ($(this).data('name') + '<br>' + $(this).data('HP'));
+	    		var playerStats = ('<h2>'+$(this).data('name') + 
+	    							'<br> Player Health: ' + $(this).data('hp')+
+	    							'<br> Player Attack Power: ' + $(this).data('ap') +'</h2>');
 	    		$('#player-stats').html(playerStats);
 
 	    	} else if (opponentChosen == false) {
@@ -74,6 +86,10 @@
 	    		console.log($(this).data('name'));
 	    		$(this).appendTo($('#opponent'));
 	    		opponentCharacter = characters[$(this).data('num')];
+	    		var opponentStats = ('<h2>'+$(this).data('name') + 
+	    							'<br> Player Health: ' + $(this).data('hp')+
+	    							'<br> Player Counter-Attack: ' + $(this).data('cp') +'</h2>');
+	    		$('#opponent-stats').html(opponentStats);
 	    		console.log(opponentCharacter);
 	    	}
 
@@ -89,6 +105,8 @@
 	    			var newOpponent = false;
 	    			console.log('.character ' + id)
 	    			$('#'+id).appendTo('#defeated');
+	    			opponentStats = '';
+	    			$('#opponent-stats').empty();
 	    			opponentCharacter = [];
 	    			console.log(opponentCharacter);
 	    		}else { 
