@@ -89,7 +89,7 @@
 
 //this I dont understand either
 	    $('.character').on('click', function() {
-	    	if(counter == 0 && playerCharacter == false){
+	    	if(counter == 0 && playerChosen == false){
 	    		counter++;
 				playerChosen = true;
 	    		$(this).appendTo($('#player'));
