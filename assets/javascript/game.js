@@ -66,6 +66,8 @@
 	    		$(this).appendTo($('#player'));
 	    		playerCharacter = characters[$(this).data('num')];
 	    		console.log(playerCharacter);
+	    		var playerStats = ($(this).data('name') + '<br>' + $(this).data('HP'));
+	    		$('#player-stats').html(playerStats);
 
 	    	} else if (opponentChosen == false) {
 	    		opponentChosen = true;
