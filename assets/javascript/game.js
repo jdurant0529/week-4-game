@@ -9,14 +9,16 @@
 		var newEnemy = false;
 		var playerStats = '';
 		var opponentStats = '';
+		var gameOver = false;
 
 		//we store all the available characters in an array titled characters.
 		var characters = [
 		{id: "Obi-Wan-Kenobi", name: "Obi Wan Kenobi", HP: 120, AP:8, CP: 25, image: "<img src='assets/images/obi.jpg'>"},
-		{id: "Darth-Vader", name: "Darth Vader", HP: 100, AP: 10, CP: 5, image: "<img src='assets/images/darth.jpg'>"},
-		{id: "Luke-Skywalker", name: "Luke Skywalker", HP: 80, AP: 12, CP: 20, image: "<img src='assets/images/luke.jpg'>"},
-		{id: "Count-Dooku", name: "Count Dooku", HP: 150, AP: 6, CP: 15, image: "<img src='assets/images/dooku.jpg'>"}];
+		{id: "Darth-Vader", name: "Darth Vader", HP: 100, AP: 6, CP: 5, image: "<img src='assets/images/darth.jpg'>"},
+		{id: "Luke-Skywalker", name: "Luke Skywalker", HP: 80, AP: 10, CP: 20, image: "<img src='assets/images/luke.jpg'>"},
+		{id: "Count-Dooku", name: "Count Dooku", HP: 150, AP: 4, CP: 15, image: "<img src='assets/images/dooku.jpg'>"}];
 		
+		$('.resetButton').hide();
 //i dont really understand this
 		for (var i = 0; i < characters.length; i++) {    
 		    var b = $('<button>');
@@ -47,25 +49,26 @@
 		 		// console.log('opponent name = ' + opponentCharacter.name + ' opponent counter-attack = ' + opponentCharacter.CP);
 		 		// console.log('opponent health = ' + opponentCharacter.HP);
 				opponentCharacter.HP = opponentCharacter.HP - pcAP; //opponent loses HP on attack
-				// console.log('after attack, opponent health = ' + opponentCharacter.HP);
-			
-				
-
-				// console.log('1st opponent chosen = ' + opponentChosen);
+				playerCharacter.HP = playerCharacter.HP - opponentCharacter.CP;
 				opponentChosen = checkWin(opponentCharacter.HP, opponentCharacter.name, opponentCharacter.id);
+				gameOver = checkLoss(playerCharacter.HP);
 				// console.log('2nd opponent chosen = ' + opponentChosen);
 				if (opponentChosen == false) {
 					$('#opponent-stats').empty();
 					opponentCharacter = [];
-				}else{
-				playerCharacter.HP = playerCharacter.HP - opponentCharacter.CP;
+				}else if (gameOver == true){
+					$('.resetButton').show();
+					$('.attackButton').hide();
+				}
+
+				
 				 // console.log('after counter-attack player health = ' + playerCharacter.HP); 
 				
 				// checkLoss(playerCharacter.HP);
 				// playerStats = (playerCharacter.name + 
 				// 					'<br> Player Health: ' + playerCharacter.HP +
 				// 					'<br> Player Attack Power: ' + pcAP);
-				$('#player-stats').html(playerCharacter.name + 
+				else {$('#player-stats').html(playerCharacter.name + 
 									'<br> Player Health: ' + playerCharacter.HP +
 									'<br> Player Attack Power: ' + pcAP);
 				// opponentStats = (opponentCharacter.name + 
@@ -128,6 +131,9 @@
 	    		if (counter < characters.length) {
 	    			alert("You defeated " + name);
 	    			opponentChosen = false;
+	    			$('#player-stats').html(playerCharacter.name + 
+									'<br> Player Health: ' + playerCharacter.HP +
+									'<br> Player Attack Power: ' + pcAP);
 	    			// console.log('.character ' + id)
 	    			$('#'+id).appendTo('#defeated');
 	    			// opponentStats = '';
@@ -138,6 +144,9 @@
 	    			// console.log(opponentCharacter);
 	    		}else if (counter >= characters.length) { 
 	    			alert("You defeated " + name);
+	    			$('#player-stats').html(playerCharacter.name + 
+									'<br> Player Health: ' + playerCharacter.HP +
+									'<br> Player Attack Power: ' + pcAP);
 	    			$('#'+id).appendTo('#defeated');
 	    			opponentStats = '';
 	    			opponentChosen = false;
@@ -145,12 +154,10 @@
 	    			$('#opponent-stats').empty();
 	    			// opponentCharacter = [];
 	    			alert('You are the master of the universe.');
-
-	    		} else {
-	    			console.log('I dont know if this ever appears.');
+	    			gameOver = true;
+	    			$('.attackButton').hide();
+	    			$('.resetButton').show();
 	    		} 
-	    	} else {
-	    		console.log('Keep fighting same character');
 	    	}
 	    	// console.log('end of checkWin process');
 	    	return opponentChosen;
@@ -159,9 +166,19 @@
 	    function checkLoss(HP){
 	    	console.log("Player health = " + HP);
 	    	if(HP<=0){
+	    		$('#player-stats').html(playerCharacter.name + 
+									'<br> Player Health: ' + playerCharacter.HP +
+									'<br> Player Attack Power: ' + pcAP);
+	    		$('#opponent-stats').html($(this).data('name') + 
+									'<br> Player Health: ' + $(this).data('hp')+
+									'<br> Player Counter-Attack: ' + $(this).data('cp'));
 	    		alert("You lost, restart the game.");
-	    	}
 
+	    		gameOver = true;
+	    	}
+	    	return gameOver;
 	    }
-		
+		$('.resetButton').on('click', function() {
+			alert('This button does nothing yet');
+		});  // end of resetButton onclick
 	});
