@@ -164,6 +164,7 @@
 			// playerStats = '';
 			// opponentStats = '';
 			gameOver = false;
+			// b= null;
 
 			$('#allchars').empty();
 			$('#defeated').empty();
@@ -188,10 +189,10 @@
 
 		  	$('.resetButton').hide();
 		  	$('.attackButton').show();
-		  	
+
 		}
 console.log('player chosen = ' + playerChosen + 'opponent chosen = ' + opponentChosen);
-
+console.log(b);
 	    });
 
 
