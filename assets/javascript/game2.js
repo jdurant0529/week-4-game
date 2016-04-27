@@ -45,31 +45,18 @@
 				opponentCharacter.HP = opponentCharacter.HP - pcAP; //opponent loses HP on attack
 
 				opponentChosen = checkWin(opponentCharacter.HP, opponentCharacter.name, opponentCharacter.id);
-				playerCharacter.HP = playerCharacter.HP - opponentCharacter.CP;
 				gameOver = checkLoss(playerCharacter.HP);
 				if (opponentChosen == false) {
 					$('#opponent-stats').empty();
 					opponentCharacter = [];
-					$('#player-stats').html(playerCharacter.name + 
-									'<br> Player Health: ' + playerCharacter.HP +
-									'<br> Player Attack Power: ' + pcAP);
-					$('#opponent-stats').html(opponentCharacter.name + 
-									'<br> Player Health: ' + opponentCharacter.HP + 
-									'<br> Opponent Counter-Attack: ' + opponentCharacter.CP);
 				}else if(gameOver == true) {
-					console.log("Game is over");
+					console.log("Game is over")
 					$('.resetButton').show();
 					$('.attackButton').hide();
-										$('#player-stats').html(playerCharacter.name + 
-									'<br> Player Health: ' + playerCharacter.HP +
-									'<br> Player Attack Power: ' + pcAP);
-					$('#opponent-stats').html(opponentCharacter.name + 
-									'<br> Player Health: ' + opponentCharacter.HP + 
-									'<br> Opponent Counter-Attack: ' + opponentCharacter.CP);
 				} 
 
 				else {
-				
+				playerCharacter.HP = playerCharacter.HP - opponentCharacter.CP;
 				
 				$('#player-stats').html(playerCharacter.name + 
 									'<br> Player Health: ' + playerCharacter.HP +
@@ -84,7 +71,6 @@
 		 });  // end of attackButton click
 		
 	    $('.character').on('click', function() {
-	    	console.log(counter + " " + playerChosen +" " + opponentChosen);
 	    	if(counter == 0 && playerChosen == false){
 	    		counter++;
 				playerChosen = true;
@@ -111,7 +97,7 @@
 									'<br> Player Health: ' + $(this).data('hp')+
 									'<br> Player Counter-Attack: ' + $(this).data('cp'));
 	    		
-	    	}else if (playerCharacter.name === null || opponentCharacter === null){
+	    	}else if (playerCharacter.name == null || opponentCharacter == null){
 	    		alert ('Both players have yet to be chosen');
 	    	}
 
@@ -131,7 +117,7 @@
 	    		}else if (counter >= characters.length) { // if all players chosen (counter) no more enemies to defeat.
 	    			alert("You defeated " + name);
 	    			$('#'+id).appendTo('#defeated');  //move enemy to defeated area.
-	    			// opponentStats = '';
+	    			opponentStats = '';
 	    			opponentChosen = false;  // current opponent is blank.
 	    			//playerStats = ''
 	    			$('#opponent-stats').empty();  //empty the opponent stats div
@@ -146,11 +132,11 @@
 	    function checkLoss(HP){
 	    	console.log("Player health = " + HP);
 	    	if(HP<=0){
-	    		alert("You lost, restart the game.");
+	    		alert("You lost, restart the game.")
 	    		gameOver = true;
-	    		
+	    		;
 	    	}
-	    	return gameOver;
+	    	return gameOver
 	    }  // end of checkLoss
 		
 	    $('.resetButton').on("click", function() {
@@ -188,9 +174,7 @@
 
 		  	$('.resetButton').hide();
 		  	$('.attackButton').show();
-
 		}
-		return gameOver;
 
 	    });
 
