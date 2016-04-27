@@ -6,8 +6,7 @@
 		var opponentCharacter = [];
 		var pcAP = 0;
 		var counter = 0;
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 		// var playerStats = '';
 		// var opponentStats = '';
 		var gameOver = false;
@@ -18,13 +17,12 @@
 		{id: "Darth-Vader", name: "Darth Vader", HP: 100, AP: 4, CP: 5, image: "<img src='assets/images/darth.jpg'>"},
 		{id: "Luke-Skywalker", name: "Luke Skywalker", HP: 80, AP: 8, CP: 20, image: "<img src='assets/images/luke.jpg'>"},
 		{id: "Count-Dooku", name: "Count Dooku", HP: 150, AP: 2, CP: 15, image: "<img src='assets/images/dooku.jpg'>"}];
-=======
+
 		//we store all the available characters in an array titled characters.
 		var characters = [
-=======
+
 		//we store all the available characters in an array titled characters.
-		var characters = [
->>>>>>> parent of 132cf29... all in working order, kinda messy, but works
+		
 		{id: "Obi-Wan-Kenobi", name: "Obi Wan Kenobi", HP: 120, AP:8, CP: 12, image: "<img src='assets/images/obi.jpg'>"},
 		{id: "Darth-Vader", name: "Darth Vader", HP: 100, AP: 10, CP: 10, image: "<img src='assets/images/darth.jpg'>"},
 		{id: "Luke-Skywalker", name: "Luke Skywalker", HP: 80, AP: 12, CP: 8, image: "<img src='assets/images/luke.jpg'>"},
