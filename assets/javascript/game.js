@@ -7,6 +7,7 @@
 		var pcAP = 0;
 		var counter = 0;
 <<<<<<< HEAD
+<<<<<<< HEAD
 		// var playerStats = '';
 		// var opponentStats = '';
 		var gameOver = false;
@@ -20,10 +21,17 @@
 =======
 		//we store all the available characters in an array titled characters.
 		var characters = [
+=======
+		//we store all the available characters in an array titled characters.
+		var characters = [
+>>>>>>> parent of 132cf29... all in working order, kinda messy, but works
 		{id: "Obi-Wan-Kenobi", name: "Obi Wan Kenobi", HP: 120, AP:8, CP: 12, image: "<img src='assets/images/obi.jpg'>"},
 		{id: "Darth-Vader", name: "Darth Vader", HP: 100, AP: 10, CP: 10, image: "<img src='assets/images/darth.jpg'>"},
 		{id: "Luke-Skywalker", name: "Luke Skywalker", HP: 80, AP: 12, CP: 8, image: "<img src='assets/images/luke.jpg'>"},
 		{id: "Count-Dooku", name: "Count Dooku", HP: 150, AP: 6, CP: 14, image: "<img src='assets/images/dooku.jpg'>"}];
+<<<<<<< HEAD
+>>>>>>> parent of 132cf29... all in working order, kinda messy, but works
+=======
 >>>>>>> parent of 132cf29... all in working order, kinda messy, but works
 		
 		$('.resetButton').hide();  // hide reset button until game is over.
@@ -54,6 +62,7 @@
 				opponentCharacter.HP = opponentCharacter.HP - pcAP; //opponent loses HP on attack
 
 				opponentChosen = checkWin(opponentCharacter.HP, opponentCharacter.name, opponentCharacter.id);
+<<<<<<< HEAD
 <<<<<<< HEAD
 				playerCharacter.HP = playerCharacter.HP - opponentCharacter.CP;
 				gameOver = checkLoss(playerCharacter.HP);
@@ -99,6 +108,19 @@
 				$('#player-stats').html(playerStats);
 				var opponentStats = ('<h2>'+ opponentCharacter.name + 
 >>>>>>> parent of 132cf29... all in working order, kinda messy, but works
+=======
+				// console.log('2nd opponent chosen = ' + opponentChosen);
+			
+				playerCharacter.HP = playerCharacter.HP - opponentCharacter.CP;
+				 // console.log('after counter-attack player health = ' + playerCharacter.HP); 
+				
+				// checkLoss(playerCharacter.HP);
+				var playerStats = ('<h2>'+playerCharacter.name + 
+									'<br> Player Health: ' + playerCharacter.HP +
+									'<br> Player Attack Power: ' + pcAP + '</h2>');
+				$('#player-stats').html(playerStats);
+				var opponentStats = ('<h2>'+ opponentCharacter.name + 
+>>>>>>> parent of 132cf29... all in working order, kinda messy, but works
 									'<br> Player Health: ' + opponentCharacter.HP + 
 									'<br> Opponent Counter-Attack: ' + opponentCharacter.CP + '</h2>');
 				$('#opponent-stats').html(opponentStats);
@@ -127,6 +149,7 @@
 	    		var opponentStats = ('<h2>'+$(this).data('name') + 
 									'<br> Player Health: ' + $(this).data('hp')+
 <<<<<<< HEAD
+<<<<<<< HEAD
 									'<br> Player Counter-Attack: ' + $(this).data('cp'));
 	    		
 	    	}else if (playerCharacter.name === null || opponentCharacter === null){
@@ -135,6 +158,8 @@
 
 		});  //end of character button click
 =======
+=======
+>>>>>>> parent of 132cf29... all in working order, kinda messy, but works
 									'<br> Player Counter-Attack: ' + $(this).data('cp') +'</h2>')
 	    	}else if (playerCharacter.name == null || opponentCharacter == null){
 	    		alert ('Both players have yet to be chosen');
@@ -179,6 +204,7 @@
 	    		if (counter < characters.length) {
 	    			alert("You defeated " + name);
 <<<<<<< HEAD
+<<<<<<< HEAD
 	    			opponentChosen = false;
 	    			$('#'+id).appendTo('#defeated');
 	    			$('#opponent-stats').empty();
@@ -202,6 +228,13 @@
 	    			$('#'+id).appendTo('#defeated');
 	    			opponentStats = '';
 	    			$('#opponent-stats').empty();
+=======
+	    			
+	    			// console.log('.character ' + id)
+	    			$('#'+id).appendTo('#defeated');
+	    			opponentStats = '';
+	    			$('#opponent-stats').empty();
+>>>>>>> parent of 132cf29... all in working order, kinda messy, but works
 	    			opponentCharacter = [];
 
 	    			// console.log(opponentCharacter);
