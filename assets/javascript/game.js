@@ -1,4 +1,5 @@
 $(document).ready(function() {
+   
     var playerChosen = false;
     var opponentChosen = false;
     var playerCharacter = [];
@@ -153,6 +154,7 @@ $(document).ready(function() {
         }
         return gameOver;
     }
+    
     $('.resetButton').on('click', function() {
         $('.resetButton').hide();
         $('.attackButton').show();
