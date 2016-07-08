@@ -30,7 +30,7 @@ $(document).ready(function() {
         b.attr('data-CP', characters[i].CP);
         b.attr('data-num', i);
         b.attr('id', characters[i].id);
-        b.attr('data-selected', characters[i].selected)
+        b.attr('data-selected', characters[i].selected);
         b.html(characters[i].image);
         $("#allchars").append(b);
     }
@@ -75,7 +75,7 @@ $(document).ready(function() {
                 $(this).appendTo($('#player'));
 
                 playerCharacter = characters[$(this).data('num')];
-                $('#' + playerCharacter.id).attr('data-selected', 'true')
+                $('#' + playerCharacter.id).attr('data-selected', 'true');
 
                 console.log(playerCharacter.id);
                 console.log('#' + playerCharacter.id).attr('data-selected');
@@ -90,7 +90,7 @@ $(document).ready(function() {
                 opponentChosen = true;
                 $(this).appendTo($('#opponent'));
                 opponentCharacter = characters[($(this).data('num'))];
-                $('#' + opponentCharacter.id).attr('data-selected', 'true')
+                $('#' + opponentCharacter.id).attr('data-selected', 'true');
                 $('#opponent-stats').html($(this).data('name') +
                     '<br> Player Health: ' + $(this).data('hp') +
                     '<br> Player Counter-Attack: ' + $(this).data('cp'));
@@ -106,10 +106,6 @@ $(document).ready(function() {
 
         // console.log('start of checkWin process');
         if (HP <= 0) {
-            console.log('characters length inside checkWin: ' + characters.length);
-            console.log('counter inside checkWin: ' + counter);
-            console.log('characters inside checkWin: ' + characters);
-            console.log('playerCharacter.name: ' + playerCharacter.id);
             if (counter < characters.length) {
                 alert("You defeated " + name);
                 opponentChosen = false;
@@ -117,7 +113,7 @@ $(document).ready(function() {
                     '<br> Player Health: ' + playerCharacter.HP +
                     '<br> Player Attack Power: ' + pcAP);
                 $('#' + id).appendTo('#defeated');
-                $('#' + playerCharacter.id).data('data-selected', 'true')
+                $('#' + playerCharacter.id).data('data-selected', 'true');
                 $('#opponent-stats').empty();
                 console.log(opponentCharacter);
 
@@ -158,7 +154,49 @@ $(document).ready(function() {
         return gameOver;
     }
     $('.resetButton').on('click', function() {
-        alert('This button does nothing yet');
-        
+        $('.resetButton').hide();
+        $('.attackButton').show();
+        $('#allchars').empty();
+        $('#player').empty();
+        $('#defeated').empty();
+        $('#player-stats').empty();
+        $('#opponent').empty();
+        $('#opponent-stats').empty();
+
+        characters = [
+            { id: "Obi-Wan-Kenobi", name: "Obi Wan Kenobi", HP: 120, AP: 8, CP: 25, selected: 'false', image: "<img src='assets/images/obi.jpg'>" },
+            { id: "Darth-Vader", name: "Darth Vader", HP: 100, AP: 6, CP: 5, selected: 'false', image: "<img src='assets/images/darth.jpg'>" },
+            { id: "Luke-Skywalker", name: "Luke Skywalker", HP: 80, AP: 10, CP: 20, selected: 'false', image: "<img src='assets/images/luke.jpg'>" },
+            { id: "Count-Dooku", name: "Count Dooku", HP: 150, AP: 4, CP: 15, selected: 'false', image: "<img src='assets/images/dooku.jpg'>" }
+        ];
+
+        for (var i = 0; i < characters.length; i++) {
+            var b = $('<button>');
+            b.addClass('character ' + characters[i].id);
+            b.attr('data-name', characters[i].name);
+            b.attr('data-HP', characters[i].HP);
+            b.attr('data-AP', characters[i].AP);
+            b.attr('data-CP', characters[i].CP);
+            b.attr('data-num', i);
+            b.attr('id', characters[i].id);
+            b.attr('data-selected', characters[i].selected);
+            b.html(characters[i].image);
+            $("#allchars").append(b);
+        }
+
+        playerChosen = false;
+        opponentChosen = false;
+        playerCharacter = [];
+        opponentCharacter = [];
+        defeatedCharacters = [];
+        pcAP = 0;
+        counter = 0;
+        newEnemy = false;
+        playerStats = '';
+        opponentStats = '';
+        gameOver = false;
+
+
+
     }); // end of resetButton onclick
 });
