@@ -13,14 +13,14 @@ $(document).ready(function() {
 
     //we store all the available characters in an array titled characters.
     var characters = [
-        { id: "Obi-Wan-Kenobi", name: "Obi Wan Kenobi", HP: 120, AP: 8, CP: 25, selected: 'false',  image: "<img src='assets/images/obi.jpg'>" },
+        { id: "Obi-Wan-Kenobi", name: "Obi Wan Kenobi", HP: 120, AP: 8, CP: 25, selected: 'false', image: "<img src='assets/images/obi.jpg'>" },
         { id: "Darth-Vader", name: "Darth Vader", HP: 100, AP: 6, CP: 5, selected: 'false', image: "<img src='assets/images/darth.jpg'>" },
-        { id: "Luke-Skywalker", name: "Luke Skywalker", HP: 80, AP: 10, CP: 20, selected: 'false',  image: "<img src='assets/images/luke.jpg'>" },
+        { id: "Luke-Skywalker", name: "Luke Skywalker", HP: 80, AP: 10, CP: 20, selected: 'false', image: "<img src='assets/images/luke.jpg'>" },
         { id: "Count-Dooku", name: "Count Dooku", HP: 150, AP: 4, CP: 15, selected: 'false', image: "<img src='assets/images/dooku.jpg'>" }
     ];
 
     $('.resetButton').hide();
-   
+
     for (var i = 0; i < characters.length; i++) {
         var b = $('<button>');
         b.addClass('character ' + characters[i].id);
@@ -50,9 +50,7 @@ $(document).ready(function() {
             } else if (gameOver == true) {
                 $('.resetButton').show();
                 $('.attackButton').hide();
-            }
-
-            else {
+            } else {
                 $('#player-stats').html(playerCharacter.name +
                     '<br> Player Health: ' + playerCharacter.HP +
                     '<br> Player Attack Power: ' + pcAP);
@@ -65,45 +63,53 @@ $(document).ready(function() {
     });
     // end of attackButton click
 
-    
+
     $('.character').on('click', function() {
-    	
-    	$(this).data('selected') = true;
-    	console.log($(this).data());
 
-        if (counter == 0 && playerChosen == false	) {
-            counter++;
-            playerChosen = true;
-            $(this).appendTo($('#player'));
+        if ($(this).attr('data-selected') == 'false') {
+            console.log('data-selected: ' + $(this).attr('data-selected'));
 
-            playerCharacter = characters[$(this).data('num')];
-            $('#player-stats').html($(this).data('name') +
-                '<br> Player Health: ' + $(this).data('hp') +
-                '<br> Player Attack Power: ' + $(this).data('ap'));
-        } else if (counter > 0 && $(this).data('name') == playerCharacter.name) {
-            alert('Player can not be opponent');
-        } else if (counter > 0 && opponentChosen == false) {
-            counter++;
-            opponentChosen = true;
-            $(this).appendTo($('#opponent'));
-            opponentCharacter = characters[($(this).data('num'))];
-            $('#opponent-stats').html($(this).data('name') +
-                '<br> Player Health: ' + $(this).data('hp') +
-                '<br> Player Counter-Attack: ' + $(this).data('cp'));
+            if (counter == 0 && playerChosen == false) {
+                counter++;
+                playerChosen = true;
+                $(this).appendTo($('#player'));
 
-        } else if (playerCharacter.name == null || opponentCharacter == null) {
-            alert('Both players have yet to be chosen');
+                playerCharacter = characters[$(this).data('num')];
+                $('#' + playerCharacter.id).attr('data-selected', 'true')
+
+                console.log(playerCharacter.id);
+                console.log('#' + playerCharacter.id).attr('data-selected');
+
+                $('#player-stats').html($(this).data('name') +
+                    '<br> Player Health: ' + $(this).data('hp') +
+                    '<br> Player Attack Power: ' + $(this).data('ap'));
+            } else if (counter > 0 && $(this).data('name') == playerCharacter.name) {
+                alert('Player can not be opponent');
+            } else if (counter > 0 && opponentChosen == false) {
+                counter++;
+                opponentChosen = true;
+                $(this).appendTo($('#opponent'));
+                opponentCharacter = characters[($(this).data('num'))];
+                $('#' + opponentCharacter.id).attr('data-selected', 'true')
+                $('#opponent-stats').html($(this).data('name') +
+                    '<br> Player Health: ' + $(this).data('hp') +
+                    '<br> Player Counter-Attack: ' + $(this).data('cp'));
+
+            } else if (playerCharacter.name == null || opponentCharacter == null) {
+                alert('Both players have yet to be chosen');
+            }
         }
-
     });
-    
+
 
     function checkWin(HP, name, id) {
 
         // console.log('start of checkWin process');
         if (HP <= 0) {
-            console.log(characters.length);
-            console.log(counter);
+            console.log('characters length inside checkWin: ' + characters.length);
+            console.log('counter inside checkWin: ' + counter);
+            console.log('characters inside checkWin: ' + characters);
+            console.log('playerCharacter.name: ' + playerCharacter.id);
             if (counter < characters.length) {
                 alert("You defeated " + name);
                 opponentChosen = false;
@@ -111,11 +117,10 @@ $(document).ready(function() {
                     '<br> Player Health: ' + playerCharacter.HP +
                     '<br> Player Attack Power: ' + pcAP);
                 $('#' + id).appendTo('#defeated');
-
-
+                $('#' + playerCharacter.id).data('data-selected', 'true')
                 $('#opponent-stats').empty();
                 console.log(opponentCharacter);
-                console.log(opponentCharacter);
+
             } else if (counter >= characters.length) {
                 alert("You defeated " + name);
                 $('#player-stats').html(playerCharacter.name +
@@ -154,5 +159,6 @@ $(document).ready(function() {
     }
     $('.resetButton').on('click', function() {
         alert('This button does nothing yet');
+        
     }); // end of resetButton onclick
 });
