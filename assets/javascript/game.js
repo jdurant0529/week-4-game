@@ -3,6 +3,7 @@ $(document).ready(function() {
     var opponentChosen = false;
     var playerCharacter = [];
     var opponentCharacter = [];
+    var defeatedCharacters = [];
     var pcAP = 0;
     var counter = 0;
     var newEnemy = false;
@@ -12,10 +13,10 @@ $(document).ready(function() {
 
     //we store all the available characters in an array titled characters.
     var characters = [
-        { id: "Obi-Wan-Kenobi", name: "Obi Wan Kenobi", HP: 120, AP: 8, CP: 25, image: "<img src='assets/images/obi.jpg'>" },
-        { id: "Darth-Vader", name: "Darth Vader", HP: 100, AP: 6, CP: 5, image: "<img src='assets/images/darth.jpg'>" },
-        { id: "Luke-Skywalker", name: "Luke Skywalker", HP: 80, AP: 10, CP: 20, image: "<img src='assets/images/luke.jpg'>" },
-        { id: "Count-Dooku", name: "Count Dooku", HP: 150, AP: 4, CP: 15, image: "<img src='assets/images/dooku.jpg'>" }
+        { id: "Obi-Wan-Kenobi", name: "Obi Wan Kenobi", HP: 120, AP: 8, CP: 25, selected: 'false',  image: "<img src='assets/images/obi.jpg'>" },
+        { id: "Darth-Vader", name: "Darth Vader", HP: 100, AP: 6, CP: 5, selected: 'false', image: "<img src='assets/images/darth.jpg'>" },
+        { id: "Luke-Skywalker", name: "Luke Skywalker", HP: 80, AP: 10, CP: 20, selected: 'false',  image: "<img src='assets/images/luke.jpg'>" },
+        { id: "Count-Dooku", name: "Count Dooku", HP: 150, AP: 4, CP: 15, selected: 'false', image: "<img src='assets/images/dooku.jpg'>" }
     ];
 
     $('.resetButton').hide();
@@ -29,6 +30,7 @@ $(document).ready(function() {
         b.attr('data-CP', characters[i].CP);
         b.attr('data-num', i);
         b.attr('id', characters[i].id);
+        b.attr('data-selected', characters[i].selected)
         b.html(characters[i].image);
         $("#allchars").append(b);
     }
@@ -63,9 +65,13 @@ $(document).ready(function() {
     });
     // end of attackButton click
 
-    //this I dont understand either
+    
     $('.character').on('click', function() {
-        if (counter == 0 && playerChosen == false characters[$(this).data('hp')>0) {
+    	
+    	$(this).data('selected') = true;
+    	console.log($(this).data());
+
+        if (counter == 0 && playerChosen == false	) {
             counter++;
             playerChosen = true;
             $(this).appendTo($('#player'));
@@ -90,7 +96,7 @@ $(document).ready(function() {
         }
 
     });
-    // end of other stuff i didnt understand
+    
 
     function checkWin(HP, name, id) {
 
@@ -105,6 +111,8 @@ $(document).ready(function() {
                     '<br> Player Health: ' + playerCharacter.HP +
                     '<br> Player Attack Power: ' + pcAP);
                 $('#' + id).appendTo('#defeated');
+
+
                 $('#opponent-stats').empty();
                 console.log(opponentCharacter);
                 console.log(opponentCharacter);
